@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MP3 Player</string>
+    <string name="start">Start</string>
+    <string name="unknown">Unknown</string>
+    <string name="details">Details</string>
+    <string name="interpreter">Interpreted by</string>
+    <string name="album">Album</string>
+    <string name="genero">Género principal</string>
+</resources>
