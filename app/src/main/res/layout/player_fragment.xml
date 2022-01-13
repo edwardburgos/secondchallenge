@@ -8,7 +8,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/songNameData"
             android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -18,23 +18,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/coverImageView"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
-            android:id="@+id/playStop"
+            android:id="@+id/playStopButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/artistData"
             app:layout_constraintVertical_bias="0.654"
             app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/coverImageView"
             android:layout_width="310dp"
             android:layout_height="310dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,7 +46,7 @@
             app:srcCompat="@drawable/ic_baseline_music_note_24" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/artistData"
             android:layout_width="310dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -55,7 +55,7 @@
             android:textSize="@dimen/normal_letter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/songNameData" />
 
         <ImageView
             android:id="@+id/nextButton"
@@ -64,8 +64,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.421"
-            app:layout_constraintStart_toEndOf="@+id/playStop"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/playStopButton"
+            app:layout_constraintTop_toBottomOf="@+id/artistData"
             app:layout_constraintVertical_bias="0.633"
             app:srcCompat="@drawable/ic_baseline_skip_next_24" />
 
@@ -74,10 +74,10 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/playStop"
+            app:layout_constraintEnd_toStartOf="@+id/playStopButton"
             app:layout_constraintHorizontal_bias="0.575"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/artistData"
             app:layout_constraintVertical_bias="0.633"
             app:srcCompat="@drawable/ic_baseline_skip_previous_24" />
 

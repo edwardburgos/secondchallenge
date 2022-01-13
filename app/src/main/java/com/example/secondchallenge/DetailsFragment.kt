@@ -34,12 +34,12 @@ class DetailsFragment : BottomSheetDialogFragment() {
                     resources.getDimension(R.dimen.normal_letter)
                 )
                 interpreter.setTextColor(Color.BLACK)
-                linearLayout.addView(
+                interpretedByData.addView(
                     interpreter
                 )
             }
-            textView7.text = Manager.album
-            textView8.text = Manager.genero
+            albumData.text = Manager.album
+            generoData.text = Manager.genero
         }
         return binding.root
     }

@@ -38,7 +38,7 @@ class PlayerFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.player_fragment, container, false)
         setHasOptionsMenu(true)
-        binding.playStop.setOnClickListener { playStop() }
+        binding.playStopButton.setOnClickListener { playStop() }
         activity?.applicationContext?.let {
             Companion.createMediaPlayer(it)
             Companion.associateInfo(it)
@@ -48,17 +48,17 @@ class PlayerFragment : Fragment() {
                 updateData()
             }
         }
-        if (Companion.song!!.isPlaying()) binding.playStop.setImageResource(R.drawable.ic_baseline_pause_24) else
-            binding.playStop.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+        if (Companion.song!!.isPlaying()) binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24) else
+            binding.playStopButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         updateData()
         return binding.root
     }
 
     fun updateData() {
-        binding.playStop.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
-        binding.imageView.setImageBitmap(Companion.cover)
-        binding.textView.text = Companion.songName
-        binding.textView2.text = Companion.artist
+        binding.playStopButton.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+        binding.coverImageView.setImageBitmap(Companion.cover)
+        binding.songNameData.text = Companion.songName
+        binding.artistData.text = Companion.artist
     }
 
     // MENU CONFIGURATION - PART I
@@ -76,14 +76,14 @@ class PlayerFragment : Fragment() {
 
     private fun playStop() {
         if (!Manager.song!!.isPlaying()) {
-            binding.playStop.setImageResource(R.drawable.ic_baseline_pause_24)
+            binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
             sharedPreferences = activity?.getSharedPreferences("general_settings", MODE_PRIVATE)!!
             val current = sharedPreferences.getInt("current", 0)
             Manager.song!!.seekTo(if (current == 164201) 0 else current)
             Manager.song!!.start()
         } else {
             Manager.song!!.pause()
-            binding.playStop.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+            binding.playStopButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
             paused = true
             saveCurrent()
         }
