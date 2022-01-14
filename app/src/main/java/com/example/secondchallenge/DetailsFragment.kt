@@ -1,16 +1,11 @@
 package com.example.secondchallenge
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.secondchallenge.databinding.DetailsFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

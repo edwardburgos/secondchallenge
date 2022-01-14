@@ -8,10 +8,7 @@ import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.net.Uri
 import java.io.BufferedReader
-import java.io.File
 import java.io.InputStreamReader
-import java.lang.reflect.Field
-
 
 class Manager : Application() {
     companion object {

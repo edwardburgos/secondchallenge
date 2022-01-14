@@ -1,29 +1,15 @@
 package com.example.secondchallenge
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.secondchallenge.databinding.PlayerFragmentBinding
 import android.content.Context.MODE_PRIVATE
-//import android.content.Shared
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.PorterDuff
-import java.io.File
-import java.io.FileOutputStream
-// import org.graalvm.compiler.nodes.ValueNodeUtil.valueString
-import com.example.secondchallenge.MainActivity
 import com.example.secondchallenge.Manager.Companion
-
 
 class PlayerFragment : Fragment() {
 
