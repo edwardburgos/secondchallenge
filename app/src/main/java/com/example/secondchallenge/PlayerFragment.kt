@@ -41,6 +41,7 @@ class PlayerFragment : Fragment() {
         if (Companion.song!!.isPlaying()) binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24) else
             binding.playStopButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         updateData()
+        sharedPreferences = activity?.getSharedPreferences("general_settings", MODE_PRIVATE)!!
         return binding.root
     }
 
@@ -66,7 +67,6 @@ class PlayerFragment : Fragment() {
     private fun playStop() {
         if (!Manager.song!!.isPlaying()) {
             binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
-            sharedPreferences = activity?.getSharedPreferences("general_settings", MODE_PRIVATE)!!
             val current = sharedPreferences.getInt("current", 0)
             Manager.song!!.seekTo(if (current == 164201) 0 else current)
             Manager.song!!.start()
