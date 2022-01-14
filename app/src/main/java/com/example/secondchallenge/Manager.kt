@@ -47,7 +47,7 @@ class Manager : Application() {
         }
 
         fun nextSong(con: Context) {
-            contador += 1
+            if (contador != 9) contador += 1 else contador = 0
             currentSong = canciones[contador]
             song?.stop()
             song?.reset()
