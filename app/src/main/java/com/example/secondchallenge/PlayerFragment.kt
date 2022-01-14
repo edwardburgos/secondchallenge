@@ -1,5 +1,6 @@
 package com.example.secondchallenge
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -16,6 +17,7 @@ class PlayerFragment : Fragment() {
     lateinit var binding: PlayerFragmentBinding
     var paused: Boolean = false
     lateinit var sharedPreferences: SharedPreferences
+    val detailsFragment = DetailsFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +34,16 @@ class PlayerFragment : Fragment() {
             Companion.createMediaPlayer(it)
             Companion.associateInfo(it)
             var context = it
-            binding.nextButton.setOnClickListener{
-                Companion.nextSong(context)
-                binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
-                updateData()
+            binding.nextButton.setOnClickListener {
+                nextSongWithDataUpdateandListener(context)
+            }
+            binding.prevButton.setOnClickListener {
+                prevSongWithDataUpdate(context)
+            }
+            if (!Companion.listenerWhenCompleted) {
+                Companion.song?.setOnCompletionListener {
+                    nextSongWithDataUpdateandListener(context)
+                }
             }
         }
         if (Companion.song!!.isPlaying()) binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24) else
@@ -43,6 +51,24 @@ class PlayerFragment : Fragment() {
         updateData()
         sharedPreferences = activity?.getSharedPreferences("general_settings", MODE_PRIVATE)!!
         return binding.root
+    }
+
+    fun prevSongWithDataUpdate(context: Context) {
+        Companion.prevSong(context)
+        binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
+        updateData()
+    }
+
+    fun nextSongWithDataUpdateandListener(context: Context) {
+        println(detailsFragment.isVisible)
+        if (detailsFragment.isVisible) detailsFragment.dismiss()
+        Companion.nextSong(context)
+        binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
+        Companion.song?.setOnCompletionListener {
+            nextSongWithDataUpdateandListener(context)
+        }
+        Companion.listenerWhenCompleted = true
+        updateData()
     }
 
     fun updateData() {
@@ -59,7 +85,6 @@ class PlayerFragment : Fragment() {
 
     // MENU CONFIGURATION - PART II
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val detailsFragment = DetailsFragment()
         detailsFragment.show(activity?.supportFragmentManager!!, "Details")
         return true
     }
@@ -68,7 +93,7 @@ class PlayerFragment : Fragment() {
         if (!Manager.song!!.isPlaying()) {
             binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
             val current = sharedPreferences.getInt("current", 0)
-            Manager.song!!.seekTo(if (current == 164201) 0 else current)
+            Manager.song!!.seekTo(current)
             Manager.song!!.start()
         } else {
             Manager.song!!.pause()
@@ -88,6 +113,7 @@ class PlayerFragment : Fragment() {
     fun saveCurrent() {
         val editor = sharedPreferences!!.edit()
         editor.putInt("current", Manager.song!!.currentPosition)
+        editor.putInt("currentSong", Manager.currentSong!!)
         editor.commit()
     }
 }

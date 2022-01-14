@@ -23,6 +23,7 @@ class Manager : Application() {
         var currentSong: Int? = null
         var contador = 0
         lateinit var canciones: List<Int>
+        var listenerWhenCompleted = false
 
         fun createMediaPlayer(con: Context) {
             canciones = listOf(
@@ -39,12 +40,27 @@ class Manager : Application() {
             )
             currentSong = canciones[contador]
             if (song == null) {
+                var sharedPreferences = con?.getSharedPreferences("general_settings", MODE_PRIVATE)!!
+                currentSong = sharedPreferences.getInt("currentSong", currentSong!!)
+                contador = canciones.indexOf(currentSong)
                 song = MediaPlayer.create(con!!, currentSong!!)
             }
         }
 
         fun nextSong(con: Context) {
             if (contador != 9) contador += 1 else contador = 0
+            currentSong = canciones[contador]
+            song?.stop()
+            song?.reset()
+            song?.release()
+            song = MediaPlayer.create(con!!, currentSong!!)
+            associateInfo(con!!)
+            song?.start()
+            listenerWhenCompleted = false
+        }
+
+        fun prevSong(con: Context) {
+            if (contador != 0) contador -= 1 else contador = 9
             currentSong = canciones[contador]
             song?.stop()
             song?.reset()
