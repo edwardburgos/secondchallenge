@@ -38,6 +38,9 @@ class PlayerFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.player_fragment, container, false)
         setHasOptionsMenu(true)
+        binding.prevButton.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+        binding.playStopButton.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+        binding.nextButton.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         binding.playStopButton.setOnClickListener { playStop() }
         activity?.applicationContext?.let {
             Companion.createMediaPlayer(it)
@@ -55,7 +58,6 @@ class PlayerFragment : Fragment() {
     }
 
     fun updateData() {
-        binding.playStopButton.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         binding.coverImageView.setImageBitmap(Companion.cover)
         binding.songNameData.text = Companion.songName
         binding.artistData.text = Companion.artist
