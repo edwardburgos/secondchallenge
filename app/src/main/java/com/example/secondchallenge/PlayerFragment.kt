@@ -34,6 +34,7 @@ class PlayerFragment : Fragment() {
             var context = it
             binding.nextButton.setOnClickListener{
                 Companion.nextSong(context)
+                binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
                 updateData()
             }
         }
