@@ -10,14 +10,13 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.PorterDuff
-import com.example.secondchallenge.Manager.Companion
 
 class PlayerFragment : Fragment() {
 
-    lateinit var binding: PlayerFragmentBinding
-    var paused: Boolean = false
-    lateinit var sharedPreferences: SharedPreferences
-    val detailsFragment = DetailsFragment()
+    private lateinit var binding: PlayerFragmentBinding
+    private var paused: Boolean = false
+    private lateinit var sharedPreferences: SharedPreferences
+    private val detailsFragment = DetailsFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,22 +30,22 @@ class PlayerFragment : Fragment() {
         binding.nextButton.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
         binding.playStopButton.setOnClickListener { playStop() }
         activity?.applicationContext?.let {
-            Companion.createMediaPlayer(it)
-            Companion.associateInfo(it)
-            var context = it
+            (activity as MainActivity).manager.createMediaPlayer(it)
+            (activity as MainActivity).manager.associateInfo(it)
+            val context = it
             binding.nextButton.setOnClickListener {
                 nextSongWithDataUpdateandListener(context)
             }
             binding.prevButton.setOnClickListener {
                 prevSongWithDataUpdate(context)
             }
-            if (!Companion.listenerWhenCompleted) {
-                Companion.song?.setOnCompletionListener {
+            if (!(activity as MainActivity).manager.listenerWhenCompleted) {
+                (activity as MainActivity).manager.song?.setOnCompletionListener {
                     nextSongWithDataUpdateandListener(context)
                 }
             }
         }
-        if (Companion.song!!.isPlaying()) binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24) else
+        if ((activity as MainActivity).manager.song!!.isPlaying()) binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24) else
             binding.playStopButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         updateData()
         sharedPreferences = activity?.getSharedPreferences("general_settings", MODE_PRIVATE)!!
@@ -54,7 +53,7 @@ class PlayerFragment : Fragment() {
     }
 
     fun prevSongWithDataUpdate(context: Context) {
-        Companion.prevSong(context)
+        (activity as MainActivity).manager.prevSong(context)
         binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
         updateData()
     }
@@ -62,19 +61,19 @@ class PlayerFragment : Fragment() {
     fun nextSongWithDataUpdateandListener(context: Context) {
         println(detailsFragment.isVisible)
         if (detailsFragment.isVisible) detailsFragment.dismiss()
-        Companion.nextSong(context)
+        (activity as MainActivity).manager.nextSong(context)
         binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
-        Companion.song?.setOnCompletionListener {
+        (activity as MainActivity).manager.song?.setOnCompletionListener {
             nextSongWithDataUpdateandListener(context)
         }
-        Companion.listenerWhenCompleted = true
+        (activity as MainActivity).manager.listenerWhenCompleted = true
         updateData()
     }
 
     fun updateData() {
-        binding.coverImageView.setImageBitmap(Companion.cover)
-        binding.songNameData.text = Companion.songName
-        binding.artistData.text = Companion.artist
+        binding.coverImageView.setImageBitmap((activity as MainActivity).manager.cover)
+        binding.songNameData.text = (activity as MainActivity).manager.songName
+        binding.artistData.text = (activity as MainActivity).manager.artist
     }
 
     // MENU CONFIGURATION - PART I
@@ -90,13 +89,13 @@ class PlayerFragment : Fragment() {
     }
 
     private fun playStop() {
-        if (!Manager.song!!.isPlaying()) {
+        if (!(activity as MainActivity).manager.song!!.isPlaying()) {
             binding.playStopButton.setImageResource(R.drawable.ic_baseline_pause_24)
             val current = sharedPreferences.getInt("current", 0)
-            Manager.song!!.seekTo(current)
-            Manager.song!!.start()
+            (activity as MainActivity).manager.song!!.seekTo(current)
+            (activity as MainActivity).manager.song!!.start()
         } else {
-            Manager.song!!.pause()
+            (activity as MainActivity).manager.song!!.pause()
             binding.playStopButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
             paused = true
             saveCurrent()
@@ -112,8 +111,8 @@ class PlayerFragment : Fragment() {
 
     fun saveCurrent() {
         val editor = sharedPreferences!!.edit()
-        editor.putInt("current", Manager.song!!.currentPosition)
-        editor.putInt("currentSong", Manager.currentSong!!)
+        editor.putInt("current", (activity as MainActivity).manager.song!!.currentPosition)
+        editor.putInt("currentSong", (activity as MainActivity).manager.currentSong!!)
         editor.commit()
     }
 }

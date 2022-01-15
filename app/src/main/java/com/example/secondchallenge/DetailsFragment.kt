@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DetailsFragment : BottomSheetDialogFragment() {
 
-    lateinit var binding: DetailsFragmentBinding
+    private lateinit var binding: DetailsFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,9 +20,9 @@ class DetailsFragment : BottomSheetDialogFragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.details_fragment, container, false)
         binding.apply {
-            var interpretes: List<String> = Manager.artist.split(", ")
+            val interpretes: List<String> = (activity as MainActivity).manager.artist.split(", ")
             for (e in interpretes) {
-                var interpreter: TextView = TextView(activity?.applicationContext)
+                var interpreter = TextView(activity?.applicationContext)
                 interpreter.text = e
                 interpreter.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
@@ -33,8 +33,8 @@ class DetailsFragment : BottomSheetDialogFragment() {
                     interpreter
                 )
             }
-            albumData.text = Manager.album
-            generoData.text = Manager.genero
+            albumData.text = (activity as MainActivity).manager.album
+            generoData.text = (activity as MainActivity).manager.genero
         }
         return binding.root
     }
