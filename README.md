@@ -8,4 +8,4 @@ See details without stop the music | Save the current song and the time played t
 
 ## Download APK
 To try the app, you must allow your phone to install apps from unknown origins<br/>
-[LINK](https://drive.google.com/file/d/13_NrKoZ9SDKY9LKaaqprKV_6iw_CbPeX/view?usp=sharing)
+[LINK](https://drive.google.com/file/d/1wmOoV2u3-qvZ737p93wY5zhICqY7oHB2/view?usp=sharing)
