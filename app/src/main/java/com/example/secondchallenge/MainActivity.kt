@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    override fun onPause() {
+        manager.saveCurrent(getSharedPreferences("general_settings", MODE_PRIVATE)!!)
+        super.onPause()
+    }
+
     override fun onDestroy() {
         manager.saveCurrent(getSharedPreferences("general_settings", MODE_PRIVATE)!!)
         manager.finishMediaPlayer()
