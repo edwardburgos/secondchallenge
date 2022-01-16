@@ -87,9 +87,12 @@ class Manager {
         // READ RAW FILE
         val reader: List<String> =
             BufferedReader(InputStreamReader(con.resources.openRawResource(R.raw.genres))).readLines();
-        genero = reader.find {
-            it.substring(0, 2) == genreCode
-        }!!.substring(3)
+        for (eleme in reader) {
+            if (eleme.substring(0, 2) == genreCode) {
+                genero = eleme.substring(3)
+                break
+            }
+        }
     }
 
     fun saveCurrent(sharedPreferences: SharedPreferences) {
