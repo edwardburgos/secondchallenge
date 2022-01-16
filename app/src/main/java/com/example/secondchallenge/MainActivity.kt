@@ -2,7 +2,6 @@ package com.example.secondchallenge
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -21,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         // HIDE ACTION BAR
         // supportActionBar?.hide()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
         // CONFIGURE ACTION BAR NAVIGATION - PART I
             // Retrieve NavController from the NavHostFragment
         val navHostFragment = supportFragmentManager
@@ -37,7 +35,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        Log.i("EDWARD LOGS", "onDestroy executed")
+        manager.saveCurrent(getSharedPreferences("general_settings", MODE_PRIVATE)!!)
+        manager.finishMediaPlayer()
         super.onDestroy()
     }
 }

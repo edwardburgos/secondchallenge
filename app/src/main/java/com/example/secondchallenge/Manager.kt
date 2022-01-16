@@ -1,8 +1,8 @@
 package com.example.secondchallenge
 
-import android.app.Application
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
@@ -90,7 +90,19 @@ class Manager {
         genero = reader.find {
             it.substring(0, 2) == genreCode
         }!!.substring(3)
+    }
 
+    fun saveCurrent(sharedPreferences: SharedPreferences) {
+        val editor = sharedPreferences!!.edit()
+        editor.putInt("current", song!!.currentPosition)
+        editor.putInt("currentSong", currentSong!!)
+        editor.commit()
+    }
+
+    fun finishMediaPlayer() {
+        song?.stop()
+        song?.reset()
+        song?.release()
     }
 
     private fun createCover(mmr: MediaMetadataRetriever, con: Context): Bitmap {

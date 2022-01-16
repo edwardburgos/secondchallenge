@@ -98,21 +98,7 @@ class PlayerFragment : Fragment() {
             (activity as MainActivity).manager.song!!.pause()
             binding.playStopButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
             paused = true
-            saveCurrent()
+            (activity as MainActivity).manager.saveCurrent(sharedPreferences)
         }
-    }
-
-    override fun onPause() {
-        if (!paused) {
-            saveCurrent()
-        }
-        super.onPause()
-    }
-
-    fun saveCurrent() {
-        val editor = sharedPreferences!!.edit()
-        editor.putInt("current", (activity as MainActivity).manager.song!!.currentPosition)
-        editor.putInt("currentSong", (activity as MainActivity).manager.currentSong!!)
-        editor.commit()
     }
 }
